@@ -16,8 +16,8 @@ export default class MapContainer extends Component {
       const node = ReactDOM.findDOMNode(mapRef);
 
       const mapConfig = Object.assign({}, {
-        center: {lat: 20.223929, lng: -155.796822},
-        zoom: 18,
+        center: {lat: 20.219350, lng: -155.796974},
+        zoom: 19,
         mapTypeId: 'hybrid',
       });
 
@@ -27,8 +27,8 @@ export default class MapContainer extends Component {
 
   render() {
     const style = {
-      width: '80vw',
-      height: '50vh'
+      width: '50vw',
+      height: '75vh'
     };
 
     return (

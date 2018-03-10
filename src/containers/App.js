@@ -7,12 +7,10 @@ import Dashboard from '../components/Dashboard.js';
 
 const App = (props) => {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={ Home } />
-        <Route exact path="/dashboard" component={ Dashboard } />
-      </Switch>
-    </div>
+    <Switch>
+      <Route exact path="/" component={ Home } />
+      <Route exact path="/dashboard" component={ Dashboard } />
+    </Switch>
   )
 }
 

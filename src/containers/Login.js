@@ -14,14 +14,13 @@ class Login extends Component {
   }
 
   handleSubmit(event) {
-    
+
   }
 
   handleInput(event) {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   }
-
 
   render() {
     return (

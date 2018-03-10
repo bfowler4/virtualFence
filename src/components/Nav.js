@@ -10,7 +10,7 @@ export default () => {
       </div>
       <div className="nav-links">
         <ul>
-          <Link to="/monitor"><li>Monitor</li></Link>
+          <Link to="/dashboard"><li>Dashboard</li></Link>
           <Link to="/logout"><li>Logout</li></Link>
         </ul>
       </div>
