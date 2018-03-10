@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-// import GoogleMapsLoader from 'google-maps';
-
-// GoogleMapsLoader.VERSION = '3.31';
 
 export default class MapContainer extends Component {
 
