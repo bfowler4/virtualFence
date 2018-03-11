@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 export default (props) => {
 
@@ -7,9 +8,9 @@ export default (props) => {
 
   return (
     <ul>
-      {alerts.map((element, idx) => {
+      {alerts.length && alerts.map((element, idx) => {
         return (
-          <Link to={`/alert/${ element.id }`} key={idx} >
+          // <Link to={`/alert/${ element.id }`} key={idx} >
             <li>
               <div className="alert-container">
                 <header>
@@ -21,12 +22,12 @@ export default (props) => {
                   }
                 </header>
                 <footer>
-                  <p>LAT: { element.lat } LONG: { element.long }</p>
-                  <p>{ element.time }</p>
+                  <p>LAT: { element.latitude } LNG: { element.longitude }</p>
+                  <p>{ moment.unix(element.time).format("M/D/YYYY h:mm:ss a") }</p>
                 </footer>
               </div>
             </li>
-          </Link>
+          // </Link>
         )
       })}
 

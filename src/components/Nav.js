@@ -6,7 +6,7 @@ export default () => {
   return (
     <nav className="header-nav">
       <div className="logo-container">
-        <h1>Virtual Fence</h1>
+        <h1>Smart Aina: Virtual Fence</h1>
       </div>
       <div className="nav-links">
         <ul>

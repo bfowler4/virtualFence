@@ -1,10 +1,39 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-export default class MapContainer extends Component {
+class MapContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      locations: []
+    }
+    this.loadMap = this.loadMap.bind(this);
+  }
 
   componentDidUpdate() {
-    this.loadMap();
+    let hasInt = true; 
+    let int = setInterval(() => {
+      if (hasInt) { hasInt = this.loadMap(); }
+      else { clearInterval(int); }
+    }, 100);
+  }
+
+  componentWillReceiveProps() {
+    const sensors = [ ...this.props.sensors ];
+    console.log(this.props.sensors);
+
+    if (this.props.sensors) {
+      let filteredSensors = sensors.filter((element, index, array) => {
+        return array.findIndex((el) => {
+          return el.device_id === element.device_id;
+        }) === index;
+      });
+      console.log('filter', filteredSensors);
+
+      this.setState({ locations: [...filteredSensors] });
+    }
+    
   }
 
   loadMap() {
@@ -22,6 +51,21 @@ export default class MapContainer extends Component {
       });
 
       this.map = new maps.Map(node, mapConfig);
+
+      const sensorLocations = this.state.locations;
+      console.log('asds', sensorLocations);
+      if (sensorLocations.length === 0) {
+        return;
+      }
+      
+      sensorLocations.forEach((element, idx) => {
+        console.log('creating marker');
+        const marker = new google.maps.Marker({
+          position: {lat: parseFloat(element.latitude), lng: parseFloat(element.longitude)},
+          map: this.map,
+          title: `Sensor ${element.device_id}`
+        });
+      });
     }
   }
 
@@ -31,6 +75,8 @@ export default class MapContainer extends Component {
       height: '75vh'
     };
 
+    console.log('render', this.state);
+
     return (
       <div ref="map" style={style}>
         loading map...
@@ -38,3 +84,5 @@ export default class MapContainer extends Component {
     )
   }
 }
+
+export default MapContainer;

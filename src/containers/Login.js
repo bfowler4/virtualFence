@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
 class Login extends Component {
   constructor(props) {
@@ -14,12 +16,35 @@ class Login extends Component {
   }
 
   handleSubmit(event) {
-
+    event.preventDefault();
+    const user = this.state;
+    this.loginUser(user);
   }
 
   handleInput(event) {
     const { name, value } = event.target;
     this.setState({ [name]: value });
+  }
+
+  loginUser(user) {
+    const history = this.props.history;
+
+    return axios({
+      method: 'get',
+      url: '/api/users/1',
+      data: {
+        username: user.username,
+        password: user.password
+      }
+    })
+    .then(user => {
+      console.log(user);
+      localStorage.setItem('user', JSON.stringify(user));
+      history.push('/dashboard');
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 
   render() {

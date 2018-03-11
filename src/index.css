@@ -1,5 +1,78 @@
-body {
+html, body {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: sans-serif;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.dashboard nav {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  height: 60px;
+  border-bottom: 1px solid #f9f9f9;
+  box-shadow: 1px 0px 5px 3px rgba(0,0,0,0.15);
+}
+
+nav .logo-container h1 {
+  color: teal;
+  margin: 20px;
+}
+
+.nav-links ul {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.nav-links a {
+  text-decoration: none;
+}
+
+.nav-links li {
+  margin-right: 20px;
+  color: teal;
+}
+
+.dashboard main {
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 20px;
+}
+
+.alert-container {
+  display: flex;
+  flex-flow: column;
+  margin: 20px;
+}
+
+main ul {
+  margin: 0;
+}
+
+main ul li {
+  background-color: #f9f9f9;
+  box-shadow: 1px 0px 5px 3px rgba(0,0,0,0.15);
+}
+
+main ul li:first-child {
+  border: 2px solid red;
+}
+
+.alert-container footer {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.alert-container footer p {
+  margin-right: 20px;
+  color: #333;
 }
