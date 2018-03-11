@@ -2,7 +2,8 @@ const express = require(`express`);
 const router = express.Router();
 const User = require(`../../db/models/User`);
 const Incident = require(`../../db/models/Incident`);
-const notifyDevice = require(`../Utilities/notifier`);
+const postNotification = require(`../Utilities/postNotification`);
+const uploadToBucket = require(`../Utilities/uploadToBucket`);
 module.exports = router;
 
 // Add a user and get all users
@@ -75,7 +76,7 @@ router.route(`/:user_id/incidents`)
   }) 
   .catch(err => res.status(400).json({ message: err.message }))
   .then(incident => {
-    //return notifyDevice(incident.toJSON());
+    return postNotification(incident.id);
   })
   .catch(err => console.log(`ERROR`, err));
 });
@@ -95,6 +96,17 @@ router.route(`/:user_id/incidents/:id`)
   .catch(err => res.status(400).json({ message: err.message }));
 })
 .put((req, res) => {
-  console.log(req);
-  return res.send(`received request`);
+  return new Incident({ id: req.params.id })
+  .fetch()
+  .then(incident => {
+    if (incident) {
+      return uploadToBucket(req.params.id, incident, req);
+    }
+  })
+  .then(incident => {
+    return res.send(incident);
+  })
+  .catch(err => {
+    console.log(err.message);
+  });
 });

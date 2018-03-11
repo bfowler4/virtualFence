@@ -1,5 +1,5 @@
 const Axios = require(`axios`);
-const accessToken = require(`../config/config.js`).accessToken;
+const photonAccessToken = require(`../config/config.js`).photon.accessToken;
 const isIncidentURL = `https://api.particle.io/v1/devices/220030000447363332363639/pilauHere`;
 const lastIncidentURL = `https://api.particle.io/v1/devices/220030000447363332363639/lastPilau`;
 const serverURL = `http://localhost:8080/api/users/1/incidents`;
@@ -29,14 +29,14 @@ function watchDevice() {
 function getDataFromPhoton(url) {
   return Axios.get(url, {
     headers: {
-      'Authorization': `Bearer ${accessToken}`
+      'Authorization': `Bearer ${photonAccessToken}`
     }
   })
   .then(data => data.data.result)
   .catch(err => console.log(err.message));
 }
 
-function sendIncident(time) {
+function sendIncidentToServer(time) {
   return Axios.post(`${serverURL}`, {
     time: time,
     longitude: `2.9890834098098`,
@@ -53,7 +53,7 @@ function loop() {
   watchDevice()
   .then(time => {
     if (time) {
-      sendIncident(time);
+      sendIncidentToServer(time);
     }
     loop();
   })

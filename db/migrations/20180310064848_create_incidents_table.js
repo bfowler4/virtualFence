@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
     table.string(`longitude`).notNullable();
     table.string(`latitude`).notNullable();
     table.integer(`device_id`).notNullable();
+    table.string(`image_url`);
     table.integer(`user_id`).references(`id`).inTable(`users`);
     table.timestamp(`created_at`).defaultTo(knex.fn.now());
     table.timestamp(`updated_at`).defaultTo(knex.fn.now());

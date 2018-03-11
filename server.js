@@ -16,6 +16,10 @@ server.use(bodyParser.urlencoded({ extended: true }));
 
 server.use(`/api`, apiRouter);
 
+server.post(`/`, (req, res) => {
+  console.log(req.body);
+})
+
 server.get(`/`, (req, res) => {
   return res.send(`hello world`);
 });
