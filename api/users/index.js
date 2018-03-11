@@ -2,6 +2,7 @@ const express = require(`express`);
 const router = express.Router();
 const User = require(`../../db/models/User`);
 const Incident = require(`../../db/models/Incident`);
+const notifyDevice = require(`../Utilities/notifier`);
 module.exports = router;
 
 // Add a user and get all users
@@ -59,17 +60,24 @@ router.route(`/:user_id/incidents`)
 })
 .post((req, res) => {
   const {
+    time,
     longitude,
-    latitude
+    latitude,
+    device_id
   } = req.body;
   const user_id = req.params.user_id;
 
-  return new Incident({ longitude, latitude, user_id })
+  return new Incident({ time, longitude, latitude, device_id, user_id })
   .save()
   .then(incident => {
-    return res.json(incident);
+    res.send(incident);
+    return incident;
   }) 
-  .catch(err => res.status(400).json({ message: err.message }));
+  .catch(err => res.status(400).json({ message: err.message }))
+  .then(incident => {
+    //return notifyDevice(incident.toJSON());
+  })
+  .catch(err => console.log(`ERROR`, err));
 });
 
 // Get an incident related to a user
@@ -85,4 +93,8 @@ router.route(`/:user_id/incidents/:id`)
     }
   })
   .catch(err => res.status(400).json({ message: err.message }));
+})
+.put((req, res) => {
+  console.log(req);
+  return res.send(`received request`);
 });

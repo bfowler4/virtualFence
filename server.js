@@ -10,6 +10,11 @@ server.use(bodyParser.urlencoded({ extended: true }));
 
 server.use(`/api`, apiRouter);
 
-server.listen(PORT, () => {
+server.get(`/`, (req, res) => {
+  return res.send(`hello world`);
+});
+
+
+server.listen(PORT, `0.0.0.0`, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
